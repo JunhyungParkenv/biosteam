@@ -8,16 +8,14 @@ f = succinic.flowsheet
 u, s = f.unit, f.stream
 
 #%%
-fermented_conc_stream = u.S405.outs[1]
+# Stream
+inf_dc = u.S405.outs[1]
+inf_dc.imol['SuccinicAcid'] = 0
 #%%
-
-# Define input streams
-inf_dc = bst.Stream('inf_dc', Water=5, **{'propionic acid': 5000, 'butyric acid': 5000, 'hexanoic acid': 5000}, units='kg/hr')
-inf_ac = bst.Stream('inf_ac', Water=5, **{'NaCl': 500}, units='kg/hr')
-
+inf_ac = bst.Stream('inf_ac', Water=50000, **{'NaCl': 500}, units='kg/hr')
 eff_dc = bst.Stream('eff_dc')  # effluent dilute
 eff_ac = bst.Stream('eff_ac')  # effluent accumulate
-
+#%%
 # Define the ED_vfa class (same as before)
 class ED_vfa(bst.Unit):
     def __init__(self, ID='', ins=None, outs=None, thermo=None,
